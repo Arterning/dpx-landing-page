@@ -29,7 +29,7 @@
     </nav>
 
     <!-- 英雄区域 -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32 animate-section">
       <div class="lg:grid lg:grid-cols-12 lg:gap-8">
         <div class="sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left">
           <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
@@ -63,7 +63,7 @@
     </div>
 
     <!-- 功能特点 -->
-    <div id="features" class="py-16 bg-white overflow-hidden">
+    <div id="features" class="py-16 bg-white overflow-hidden animate-section">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="lg:text-center">
           <h2 class="text-base text-indigo-600 font-semibold tracking-wide uppercase">核心功能</h2>
@@ -98,7 +98,7 @@
     </div>
 
     <!-- 解决方案 -->
-    <div id="solutions" class="py-16 bg-gray-50">
+    <div id="solutions" class="py-16 bg-gray-50 animate-section">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="lg:text-center">
           <h2 class="text-base text-indigo-600 font-semibold tracking-wide uppercase">行业解决方案</h2>
@@ -124,7 +124,7 @@
     </div>
 
     <!-- 客户评价 -->
-    <div class="py-16 bg-white">
+    <div class="py-16 bg-white animate-section">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="lg:text-center">
           <h2 class="text-base text-indigo-600 font-semibold tracking-wide uppercase">客户评价</h2>
@@ -514,8 +514,41 @@ const pricing = ref({
     }
   ]
 })
+
+document.addEventListener('DOMContentLoaded', function() {
+      const animateSections = document.querySelectorAll('.animate-section');
+      
+      function checkVisibility() {
+          animateSections.forEach(section => {
+              const sectionTop = section.getBoundingClientRect().top;
+              const windowHeight = window.innerHeight;
+              
+              if (sectionTop < windowHeight * 0.85) {
+                  section.classList.add('visible');
+              }
+          });
+      }
+      
+      // 初始检查
+      checkVisibility();
+      
+      // 滚动时检查
+      window.addEventListener('scroll', checkVisibility);
+  });
 </script>
 
 <style>
-/* 可以在这里添加自定义样式 */
+  /* 可以在这里添加自定义样式 */
+
+    .animate-section {
+        height: 900px;
+        opacity: 0;
+        transform: translateY(50px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    
+    .animate-section.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
 </style>
