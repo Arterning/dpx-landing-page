@@ -516,24 +516,22 @@ const pricing = ref({
 })
 
 document.addEventListener('DOMContentLoaded', function() {
-      const animateSections = document.querySelectorAll('.animate-section');
-      
-      function checkVisibility() {
-          animateSections.forEach(section => {
-              const sectionTop = section.getBoundingClientRect().top;
-              const windowHeight = window.innerHeight;
-              
-              if (sectionTop < windowHeight * 0.85) {
-                  section.classList.add('visible');
+  const animateSections = document.querySelectorAll('.animate-section');
+            
+      const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                  entry.target.classList.add('visible');
+                  observer.unobserve(entry.target);
               }
           });
-      }
+      }, {
+          threshold: 0.1
+      });
       
-      // 初始检查
-      checkVisibility();
-      
-      // 滚动时检查
-      window.addEventListener('scroll', checkVisibility);
+      animateSections.forEach(section => {
+          observer.observe(section);
+      });
   });
 </script>
 
